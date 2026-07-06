@@ -53,11 +53,11 @@ export default function LoginPage() {
           </form>
         </InfoCard>
 
-        <InfoCard title="Development note" description="This UI is wired for the backend auth route but stays safe to render standalone.">
+        <InfoCard title="Authentication" description="The browser stores the access token for API calls in this session.">
           <div className="space-y-3 text-sm leading-6 text-[#bdb4a8]">
             <p>{getLoginHint()}</p>
             <p>The backend seeds the default admin account on startup using the values in <span className="text-white">.env.example</span>.</p>
-            <p>Token persistence and role-based route protection can be connected next.</p>
+            <p>Use the sign out or clear-token control from the dashboard to reset the browser session.</p>
           </div>
         </InfoCard>
       </div>

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.config import get_settings
 from app.dependencies import get_current_user
@@ -35,4 +35,7 @@ def get_settings_view(current_user=Depends(get_current_user)) -> dict[str, str |
 
 @router.patch("")
 def patch_settings(current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented"}
+    raise HTTPException(
+        status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
+        detail="Runtime settings are read-only. Update environment variables and restart the containers.",
+    )

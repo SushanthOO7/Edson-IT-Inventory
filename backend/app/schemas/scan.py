@@ -25,3 +25,9 @@ class ScanResultRead(BaseModel):
     confirmed_by: str | None
     confirmed_at: str | None
     created_at: datetime
+    suggested_device_id: str | None = None
+    suggested_asset_tag: str | None = None
+    suggested_display_name: str | None = None
+    suggested_score: float | None = None
+    suggested_reason: str | None = None
+    suggested_category: str | None = None

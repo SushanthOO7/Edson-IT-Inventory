@@ -4,10 +4,11 @@ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8001
 
 export async function apiFetch(path: string, init?: RequestInit) {
   const token = getStoredToken();
+  const isFormData = typeof FormData !== "undefined" && init?.body instanceof FormData;
   const response = await fetch(`${backendUrl}${path}`, {
     ...init,
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(init?.headers ?? {}),
     },
@@ -20,6 +21,25 @@ export async function apiFetch(path: string, init?: RequestInit) {
   }
 
   return response.json();
+}
+
+export async function apiText(path: string, init?: RequestInit) {
+  const token = getStoredToken();
+  const response = await fetch(`${backendUrl}${path}`, {
+    ...init,
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(init?.headers ?? {}),
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    const payload = (await response.json().catch(() => null)) as { detail?: string } | null;
+    throw new Error(payload?.detail ?? `Request failed: ${response.status}`);
+  }
+
+  return response.text();
 }
 
 export async function apiLogin(email: string, password: string) {

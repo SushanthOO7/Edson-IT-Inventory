@@ -11,9 +11,12 @@ class SyncRunRead(BaseModel):
 
     id: str
     source: str
+    started_at: str | None
+    finished_at: str | None
     status: str
     total_records: int
     matched_devices: int
     created_devices: int
     conflicts_created: int
     errors_count: int
+    error_log: dict | None

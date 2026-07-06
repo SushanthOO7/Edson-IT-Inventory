@@ -14,7 +14,7 @@ export default function HomePage() {
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
-        <InfoCard title="March report" description="Move from seed placeholders to real ServiceNow and office inventory rows.">
+        <InfoCard title="March report" description="Work from real ServiceNow, Intune, scanner, and office inventory rows.">
           <div className="grid gap-3 md:grid-cols-2">
             {[
               { icon: Upload, title: "Import-safe", text: "CSV snapshots are stored separately, then matched into master devices by exact identifiers." },

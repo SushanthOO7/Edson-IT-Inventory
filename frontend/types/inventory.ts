@@ -14,3 +14,18 @@ export type OfficeInventory = {
   condition?: string | null;
   notes?: string | null;
 };
+
+export type InventoryEvent = {
+  id: string;
+  device_id: string;
+  event_type: string;
+  from_status?: string | null;
+  to_status?: string | null;
+  performed_by?: string | null;
+  assigned_to_name?: string | null;
+  assigned_to_email?: string | null;
+  location?: string | null;
+  condition?: string | null;
+  notes?: string | null;
+  created_at: string;
+};

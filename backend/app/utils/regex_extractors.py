@@ -1,17 +1,17 @@
 import re
 
 ASSET_TAG_PATTERNS = [
+    r"\bASSET(?:\s*TAG)?[- #:]*([A-Z0-9-]{3,})\b",
     r"\bCON\d+\b",
     r"\bIT[- ]?\d{4,}\b",
-    r"\bASSET[- #:]*[A-Z0-9-]+\b",
     r"\bINV[- ]?\d{4,}\b",
 ]
 
 SERIAL_PATTERNS = [
-    r"\bS\/N[: ]*[A-Z0-9-]+\b",
-    r"\bSN[: ]*[A-Z0-9-]+\b",
-    r"\bSERIAL[: ]*[A-Z0-9-]+\b",
-    r"\bSERVICE TAG[: ]*[A-Z0-9-]+\b",
+    r"\bS\/N[:# ]*([A-Z0-9-]{3,})\b",
+    r"\bSN[:# ]*([A-Z0-9-]{3,})\b",
+    r"\bSERIAL(?:\s*NUMBER)?[:# ]*([A-Z0-9-]{3,})\b",
+    r"\bSERVICE TAG[:# ]*([A-Z0-9-]{3,})\b",
 ]
 
 MODEL_PATTERNS = [
@@ -28,7 +28,8 @@ def extract_first_match(patterns: list[str], text: str) -> str | None:
     for pattern in patterns:
         match = re.search(pattern, text, flags=re.IGNORECASE)
         if match:
-            return match.group(0)
+            value = match.group(1) if match.lastindex else match.group(0)
+            return re.sub(r"\s+", " ", value).strip().upper()
     return None
 
 

@@ -12,4 +12,10 @@ export type ScanResult = {
   confirmed_by?: string | null;
   confirmed_at?: string | null;
   created_at: string;
+  suggested_device_id?: string | null;
+  suggested_asset_tag?: string | null;
+  suggested_display_name?: string | null;
+  suggested_score?: number | null;
+  suggested_reason?: string | null;
+  suggested_category?: string | null;
 };

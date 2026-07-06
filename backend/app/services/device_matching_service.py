@@ -50,9 +50,6 @@ def match_device(db: Session, *, asset_tag: str | None = None, serial_number: st
         if ci and _normalize(device.device_name) == _normalize(ci):
             candidates.append(MatchCandidate(device, 92, "ServiceNow CI exact match"))
             continue
-        if intune_id:
-            candidates.append(MatchCandidate(device, 50, "weak possible match"))
-
     if not candidates:
         return None
     candidates.sort(key=lambda candidate: candidate.score, reverse=True)

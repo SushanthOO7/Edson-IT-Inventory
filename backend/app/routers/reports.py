@@ -4,51 +4,56 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.dependencies import get_current_user
-from app.services.report_service import dashboard_summary
+from app.services import report_service
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
 
 @router.get("/dashboard-summary")
 def summary(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, int | str | None]:
-    return dashboard_summary(db)
+    return report_service.dashboard_summary(db)
 
 
 @router.get("/office-inventory")
-def office_inventory_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "office-inventory"}
+def office_inventory_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.office_inventory_report(db)
 
 
 @router.get("/checked-out")
-def checked_out_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "checked-out"}
+def checked_out_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.checked_out_report(db)
 
 
 @router.get("/overdue")
-def overdue_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "overdue"}
+def overdue_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.overdue_report(db)
 
 
 @router.get("/missing")
-def missing_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "missing"}
+def missing_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.missing_report(db)
 
 
 @router.get("/servicenow-not-intune")
-def servicenow_not_intune_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "servicenow-not-intune"}
+def servicenow_not_intune_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.servicenow_not_intune_report(db)
 
 
 @router.get("/intune-not-servicenow")
-def intune_not_servicenow_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "intune-not-servicenow"}
+def intune_not_servicenow_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.intune_not_servicenow_report(db)
 
 
 @router.get("/conflicts")
-def conflicts_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> dict[str, str]:
-    return {"status": "not-implemented", "report": "conflicts"}
+def conflicts_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.conflicts_report(db)
+
+
+@router.get("/inventory-events")
+def inventory_events_report(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> list[dict]:
+    return report_service.inventory_events_report(db)
 
 
 @router.get("/export/csv", response_class=PlainTextResponse)
 def export_csv(db: Session = Depends(get_db), current_user=Depends(get_current_user)) -> str:
-    return "report,status\nsummary,not-implemented\n"
+    return report_service.devices_csv_export(db)

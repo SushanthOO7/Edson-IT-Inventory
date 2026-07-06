@@ -25,6 +25,10 @@ def list_devices(q: str | None = Query(default=None), limit: int = Query(default
                 Device.serial_number.ilike(pattern),
                 Device.device_name.ilike(pattern),
                 Device.display_name.ilike(pattern),
+                Device.model.ilike(pattern),
+                Device.model_category.ilike(pattern),
+                Device.department.ilike(pattern),
+                Device.cost_center.ilike(pattern),
             )
         )
     total = db.scalar(select(func.count()).select_from(query.subquery())) or 0
