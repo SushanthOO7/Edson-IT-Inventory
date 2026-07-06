@@ -1,0 +1,15 @@
+export type ScanResult = {
+  id: string;
+  device_id?: string | null;
+  detected_asset_tag?: string | null;
+  detected_serial_number?: string | null;
+  detected_model?: string | null;
+  detected_device_name?: string | null;
+  detected_text?: string | null;
+  confidence_score: number;
+  image_path?: string | null;
+  scan_status: string;
+  confirmed_by?: string | null;
+  confirmed_at?: string | null;
+  created_at: string;
+};
